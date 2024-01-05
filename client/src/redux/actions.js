@@ -18,7 +18,7 @@ export const fetchData = () => {
   return (dispatch) => {
     dispatch(fetchDataRequest());
     axios
-      .get('http://localhost:5000/allreports', {
+      .get('http://quantic-api.onrender.com/allreports', {
         headers: {
           'x-token': localStorage.getItem('token'),
         },
@@ -53,7 +53,7 @@ export const updateReport = (data) => {
     dispatch(updateReportRequest());
 
     try {
-      const response = await axios.put('http://localhost:5000/report', { id, tags, status, assignedto });
+      const response = await axios.put('http://quantic-api.onrender.com/report', { id, tags, status, assignedto });
       dispatch(updateReportSuccess(response.data));
       return response.data; // You can return the data if needed
     } catch (error) {
