@@ -7,25 +7,22 @@ import cors from "cors";
 import { Buffer } from 'buffer';
 import multer from "multer";
 import fs from "fs"; 
-
+import dotenv from "dotenv"; 
+dotenv.config();
 const app = express();
 
 app.use(
   cors({
-    origin:["https://deploy-mern-1whq.vercel.app"],
-    methods: ["GET,HEAD,PUT,PATCH,POST,DELETE"],
-    credentials: true,
-    optionsSuccessStatus: 204,
+    origin: "*"
   })
-);app.use(express.json());
+);
+app.use(express.json());
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 mongoose
-  .connect(
-    "mongodb+srv://bhagyarajupentakota:raju123@cluster0.mi8zmku.mongodb.net/"
-  )
+  .connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("DB connected...."));
 
 app.get("/", (req, res) => {
